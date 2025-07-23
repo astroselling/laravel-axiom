@@ -1,8 +1,7 @@
 <?php
 
 use Jplhomer\Axiom\AxiomLogHandler;
-use Monolog\Level;
-use Monolog\LogRecord;
+use Monolog\Logger;
 
 beforeEach(function () {
     $this->dataset = 'test-dataset';
@@ -32,7 +31,7 @@ it('initializes with default level and bubble values', function () {
     $bubbleProperty = $reflection->getProperty('bubble');
     $bubbleProperty->setAccessible(true);
 
-    expect($levelProperty->getValue($this->handler)->value)->toBe(Level::Debug->value);
+    expect($levelProperty->getValue($this->handler))->toBe(Logger::DEBUG);
     expect($bubbleProperty->getValue($this->handler))->toBeTrue();
 });
 
@@ -40,7 +39,7 @@ it('initializes with custom level and bubble values', function () {
     $handler = new AxiomLogHandler(
         $this->dataset,
         $this->apiToken,
-        Level::Error,
+        Logger::ERROR,
         false
     );
 
@@ -52,7 +51,7 @@ it('initializes with custom level and bubble values', function () {
     $bubbleProperty = $reflection->getProperty('bubble');
     $bubbleProperty->setAccessible(true);
 
-    expect($levelProperty->getValue($handler)->value)->toBe(Level::Error->value);
+    expect($levelProperty->getValue($handler))->toBe(Logger::ERROR);
     expect($bubbleProperty->getValue($handler))->toBeFalse();
 });
 
@@ -63,14 +62,15 @@ it('sends log records to Axiom API', function () {
     $curlMock->shouldReceive('curl_exec')->andReturn(true);
     $curlMock->shouldReceive('curl_close')->andReturn(true);
 
-    $record = new LogRecord(
-        datetime: new DateTimeImmutable(),
-        channel: 'test-channel',
-        level: Level::Info,
-        message: 'Test message',
-        context: ['foo' => 'bar'],
-        extra: []
-    );
+    $record = [
+        'datetime' => new DateTimeImmutable,
+        'channel' => 'test-channel',
+        'level' => Logger::INFO,
+        'level_name' => 'INFO',
+        'message' => 'Test message',
+        'context' => ['foo' => 'bar'],
+        'extra' => [],
+    ];
 
     $reflection = new ReflectionClass($this->handler);
     $writeMethod = $reflection->getMethod('write');
@@ -90,14 +90,15 @@ it('formats log record correctly for Axiom API', function () {
     $curlMock->shouldReceive('curl_exec')->andReturn(true);
     $curlMock->shouldReceive('curl_close')->andReturn(true);
 
-    $record = new LogRecord(
-        datetime: new DateTimeImmutable(),
-        channel: 'test-channel',
-        level: Level::Info,
-        message: 'Test message',
-        context: ['foo' => 'bar'],
-        extra: []
-    );
+    $record = [
+        'datetime' => new DateTimeImmutable,
+        'channel' => 'test-channel',
+        'level' => Logger::INFO,
+        'level_name' => 'INFO',
+        'message' => 'Test message',
+        'context' => ['foo' => 'bar'],
+        'extra' => [],
+    ];
 
     $reflection = new ReflectionClass($this->handler);
     $writeMethod = $reflection->getMethod('write');

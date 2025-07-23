@@ -67,5 +67,5 @@ it('respects log level configuration', function () {
     $levelProperty = $reflection->getProperty('level');
     $levelProperty->setAccessible(true);
 
-    expect($levelProperty->getValue($handlers[0])->value)->toBe(Monolog\Level::Error->value);
+    expect($levelProperty->getValue($handlers[0]))->toBe(Logger::ERROR);
 });
