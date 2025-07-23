@@ -7,6 +7,10 @@
 
 This package provides a logging handler for [Axiom](https://axiom.co/). It allows you to send logs to Axiom from your Laravel application.
 
+## Compatibility
+
+This package supports Laravel 9, 10, 11, and 12.
+
 You can install the package via composer:
 
 ```bash
