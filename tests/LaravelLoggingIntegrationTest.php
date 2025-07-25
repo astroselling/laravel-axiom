@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Log;
 use Jplhomer\Axiom\AxiomLogHandler;
 use Monolog\Handler\HandlerInterface;
-use Monolog\Logger;
 
 it('can be configured as a Laravel log channel', function () {
     config()->set('logging.channels.axiom', [

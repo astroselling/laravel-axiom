@@ -64,7 +64,7 @@ it('sends log records to Axiom API', function () {
     $curlMock->shouldReceive('curl_close')->andReturn(true);
 
     $record = new LogRecord(
-        datetime: new DateTimeImmutable(),
+        datetime: new DateTimeImmutable,
         channel: 'test-channel',
         level: Level::Info,
         message: 'Test message',
@@ -91,7 +91,7 @@ it('formats log record correctly for Axiom API', function () {
     $curlMock->shouldReceive('curl_close')->andReturn(true);
 
     $record = new LogRecord(
-        datetime: new DateTimeImmutable(),
+        datetime: new DateTimeImmutable,
         channel: 'test-channel',
         level: Level::Info,
         message: 'Test message',
