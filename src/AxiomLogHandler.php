@@ -9,8 +9,6 @@ use Monolog\LogRecord;
 
 class AxiomLogHandler extends AbstractProcessingHandler
 {
-    const AXIOM_ENDPOINT = 'https://api.axiom.co/v1/datasets';
-
     protected string $dataset;
 
     protected string $apiToken;
